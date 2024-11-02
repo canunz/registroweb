@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivo Duoc UC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2C1E42;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #2C1E42;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .search-btn, .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: none; /* Ocultamos el menú inicialmente */
+            position: absolute;
+            top: 70px; /* Espacio para la cabecera */
+            right: 20px;
+            background-color: #2C1E42;
+            border: 1px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .phone-container {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .phone-image {
+            max-width: 300px;
+            height: auto;
+            transform: rotate(-12deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+
+        .app-download {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .app-download h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .app-download h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #8E7CB0;
+        }
+
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 280px;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #FFD700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #2C1E42;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo para el menú de accesibilidad */
+        #accessibility-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 200;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        #accessibility-menu h3 {
+            color: #2C1E42;
+        }
+
+        #accessibility-menu button {
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #F3F3F3;
+            font-size: 14px;
+            color: #2C1E42;
+            margin: 5px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        #accessibility-menu .close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #2C1E42;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .app-download h1 {
+                font-size: 28px;
+            }
+            .app-download h2 {
+                font-size: 24px;
+            }
+            .download-btn {
+                width: 250px;
+            }
+            .phone-image {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">RegistrAPP</a>
+            <nav class="navbar">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="menu-btn" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+        <div class="menu" id="menu">
+            <a href="{% url 'home' %}">Inicio</a>
+            <a href="{% url 'evento' %}">Evento</a>
+            <!-- Agrega más enlaces según sea necesario -->
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="phone-container">
+            <img src="{% static 'img/celular.png' %}" alt="Vivo Duoc App" class="phone-image">
+        </div>
+
+        <div class="app-download">
+            <h1>Descarga la Nueva App</h1>
+            <h2>RegistrAPP</h2>
+            
+            <div class="download-buttons">
+                <a href="#" class="download-btn">
+                    <i class="fas fa-download"></i>
+                    Descargar para Apple
+                </a>
+                <a href="#" class="download-btn">
+                    <i class="fas fa-download"></i>
+                    Descargar para Android
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Botón de accesibilidad -->
+    <button class="accessibility-btn" onclick="toggleAccessibilityMenu()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Menú de accesibilidad -->
+    <div id="accessibility-menu">
+        <button class="close-btn" onclick="toggleAccessibilityMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Menú De Accesibilidad (CTRL+U)</h3>
+        <p><strong>ES</strong> Español (Spanish)</p>
+        <p>Perfiles de accesibilidad</p>
+        <div style="margin-bottom: 10px;">XL Widget de gran tamaño</div>
+        <button>Leer página</button>
+        <button>Contraste +</button>
+        <button>Contraste inteligente</button>
+        <button>Resaltar enlaces</button>
+        <button>Agrandar texto</button>
+        <button>Espaciado de texto</button>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+        }
+
+        function toggleAccessibilityMenu() {
+            const accessibilityMenu = document.getElementById("accessibility-menu");
+            accessibilityMenu.style.display = (accessibilityMenu.style.display === "none" || accessibilityMenu.style.display === "") ? "block" : "none";
+        }
+    </script>
+</body>
+</html>

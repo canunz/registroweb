@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento</title>
+    <style>
+        body {
+            background-image: url('/static/img/foto.avif'); 
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            height: 100vh;
+            margin: 0;
+            justify-content: center;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .container {
+            background-color: #2C1E42;
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #2C1E42;
+            z-index: 3;
+            box-sizing: border-box;
+            height: 70px;
+        }
+
+        .logo h1 {
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .icons-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2.5;
+        }
+
+        .icon:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        input[type="text"], select, button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid white;
+            box-sizing: border-box;
+        }
+
+        input[type="text"], select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        select {
+            color: black;
+        }
+
+        button {
+            background-color: black;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFD700;
+            color: black;
+        }
+
+        .qr-code {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .qr-code img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background-color: #2C1E42;
+            border: 1px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .header {
+                height: 60px;
+                padding: 10px 15px;
+            }
+
+            .logo h1 {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="header">
+        <div class="logo">
+            <h1>RegistrAPP</h1>
+        </div>
+        <div class="icons-container">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+            </div>
+            <div class="icon" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu" id="menu">
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'evento' %}">Evento</a>
+    </div>
+
+    <div class="container">
+        <h1>Registrar Evento</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="nombre_evento" placeholder="Nombre del Evento" required>
+            <select name="tipo_evento" required>
+                <option value="" disabled selected>Seleccione un tipo de evento</option>
+                <option value="conferencia">Conferencia</option>
+                <option value="seminario">Seminario</option>
+                <option value="taller">Taller</option>
+                <option value="otro">Otro</option>
+            </select>
+            <button type="submit">Generar QR</button>
+        </form>
+    </div>
+
+    <div class="qr-code">
+        {% if qr_code_url %}
+        <img src="data:image/png;base64,{{ qr_code_url }}" alt="QR Code">
+        <div class="space"></div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
